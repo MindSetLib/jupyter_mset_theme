@@ -1,7 +1,7 @@
 # jupyter_mset_theme
 
-[![Github Actions Status](https://github.com/github_username/jupyter_mset_theme/workflows/Build/badge.svg)](https://github.com/github_username/jupyter_mset_theme/actions/workflows/build.yml)
-JupyterLab 3 theme for mset
+[![Github Actions Status](https://github.com/MindSetLib/jupyter_mset_theme/workflows/Build/badge.svg)](https://github.com/MindSetLib/jupyter_mset_theme/actions/workflows/build.yml)
+JupyterLab3 theme for mset
 
 ## Requirements
 

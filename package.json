@@ -1,15 +1,15 @@
 {
   "name": "jupyter_mset_theme",
   "version": "0.1.0",
-  "description": "JupyterLab 3 theme for mset",
+  "description": "JupyterLab3 theme for mset",
   "keywords": [
     "jupyter",
     "jupyterlab",
     "jupyterlab-extension"
   ],
-  "homepage": "https://github.com/github_username/jupyter_mset_theme",
+  "homepage": "https://github.com/MindSetLib/jupyter_mset_theme",
   "bugs": {
-    "url": "https://github.com/github_username/jupyter_mset_theme/issues"
+    "url": "https://github.com/MindSetLib/jupyter_mset_theme/issues"
   },
   "license": "BSD-3-Clause",
   "author": {
@@ -24,7 +24,7 @@
   "types": "lib/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/github_username/jupyter_mset_theme.git"
+    "url": "https://github.com/MindSetLib/jupyter_mset_theme.git"
   },
   "scripts": {
     "build": "jlpm build:lib && jlpm build:labextension:dev",
@@ -163,5 +163,11 @@
       "alpha-value-notation": null,
       "color-function-notation": null
     }
+  },
+  "resolutions": {
+    "@lumino/coreutils": "1.11.0",
+    "@lumino/messaging": "1.10.0",
+    "@lumino/signaling": "1.10.0",
+    "@lumino/widgets": "1.37.2"
   }
 }
