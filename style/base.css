@@ -1,0 +1,9 @@
+@import './variables.css';
+
+#jp-MsetLogo {
+    width: calc(var(--jp-private-sidebar-tab-width) + var(--jp-border-width));
+}
+
+#jp-MainLogo {
+    display: none !important;;
+}
