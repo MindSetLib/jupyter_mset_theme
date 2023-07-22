@@ -10,12 +10,3 @@ pre {
   font-size: var(--jp-code-font-size);
   line-height: var(--jp-code-line-height);
 }
-
-#jp-MainLogo > svg {
-    visibility: hidden;
-}
-
-#jp-MainLogo {
-    background-image: url("mset.png");
-    background-repeat: no-repeat;
-}
