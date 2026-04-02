@@ -1,11 +1,13 @@
 # jupyter_mset_theme
 
 [![Github Actions Status](https://github.com/MindSetLib/jupyter_mset_theme/workflows/Build/badge.svg)](https://github.com/MindSetLib/jupyter_mset_theme/actions/workflows/build.yml)
-JupyterLab3 theme for mset
+JupyterLab global style overrides for mset
+
+This package applies CSS overrides globally, regardless of which JupyterLab theme is selected. It also replaces the JupyterLab logo and favicon with the MindSet branding assets bundled in the extension.
 
 ## Requirements
 
-- JupyterLab >= 3.0
+- JupyterLab >= 4.0
 
 ## Install
 
@@ -27,7 +29,7 @@ pip uninstall jupyter_mset_theme
 
 ### Development install
 
-Note: You will need NodeJS to build the extension package.
+Note: You will need Node.js 20 or newer to build the extension package and regenerate `yarn.lock`.
 
 The `jlpm` command is JupyterLab's pinned version of
 [yarn](https://yarnpkg.com/) that is installed with JupyterLab. You may use
