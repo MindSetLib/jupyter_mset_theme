@@ -83,6 +83,9 @@
   },
   "eslintIgnore": [
     "node_modules",
+    "venv",
+    ".venv",
+    "env",
     "dist",
     "coverage",
     "**/*.d.ts"
