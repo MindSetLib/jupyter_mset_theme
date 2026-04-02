@@ -18,7 +18,7 @@ jobs:
       uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
 
     - name: Install dependencies
-      run: python -m pip install -U jupyterlab~=3.1
+      run: python -m pip install -U "jupyterlab~=4.5"
 
     - name: Lint the extension
       run: |
@@ -29,7 +29,7 @@ jobs:
     - name: Build the extension
       run: |
         set -eux
-        python -m pip install .[test]
+        python -m pip install .
 
         jupyter labextension list
         jupyter labextension list 2>&1 | grep -ie "jupyter_mset_theme.*OK"
@@ -44,7 +44,7 @@ jobs:
         pip uninstall -y "jupyter_mset_theme" jupyterlab
 
     - name: Upload extension packages
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: extension-artifacts
         path: dist/jupyter_mset_theme*
@@ -60,9 +60,9 @@ jobs:
     - name: Install Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.9'
+        python-version: '3.12'
         architecture: 'x64'
-    - uses: actions/download-artifact@v3
+    - uses: actions/download-artifact@v4
       with:
         name: extension-artifacts
     - name: Install and Test
@@ -72,7 +72,7 @@ jobs:
         sudo rm -rf $(which node)
         sudo rm -rf $(which node)
 
-        pip install "jupyterlab~=3.1" jupyter_mset_theme*.whl
+        pip install "jupyterlab~=4.5" jupyter_mset_theme*.whl
 
 
         jupyter labextension list
