@@ -1,7 +1,7 @@
 {
     "name": "jupyter_mset_theme",
-    "version": "0.1.3",
-    "description": "JupyterLab3 theme for mset",
+    "version": "0.2.0",
+    "description": "JupyterLab global style overrides for mset",
     "keywords": [
         "jupyter",
         "jupyterlab",
@@ -44,7 +44,7 @@
         "lint": "jlpm stylelint && jlpm prettier && jlpm eslint",
         "lint:check": "jlpm stylelint:check && jlpm prettier:check && jlpm eslint:check",
         "prettier": "jlpm prettier:base --write --list-different",
-        "prettier:base": "prettier \"**/*{.ts,.tsx,.js,.jsx,.css,.json,.md}\"",
+        "prettier:base": "prettier \"**/*.{ts,tsx,js,jsx,css,json,md}\"",
         "prettier:check": "jlpm prettier:base --check",
         "stylelint": "jlpm stylelint:check --fix",
         "stylelint:check": "stylelint --cache \"style/**/*.css\"",
@@ -53,25 +53,22 @@
         "watch:labextension": "jupyter labextension watch ."
     },
     "dependencies": {
-        "@jupyterlab/application": "^3.1.0",
-        "@jupyterlab/apputils": "^3.1.0"
+        "@jupyterlab/application": "^4.5.6",
+        "@jupyterlab/apputils": "^4.5.6"
     },
     "devDependencies": {
-        "@jupyterlab/builder": "^3.1.0",
-        "@typescript-eslint/eslint-plugin": "^4.8.1",
-        "@typescript-eslint/parser": "^4.8.1",
-        "eslint": "^7.14.0",
-        "eslint-config-prettier": "^6.15.0",
-        "eslint-plugin-prettier": "^3.1.4",
+        "@jupyterlab/builder": "^4.5.6",
+        "@typescript-eslint/eslint-plugin": "^8.43.0",
+        "@typescript-eslint/parser": "^8.43.0",
+        "eslint": "^8.57.1",
+        "eslint-config-prettier": "^10.1.8",
         "npm-run-all": "^4.1.5",
-        "prettier": "^2.1.1",
-        "rimraf": "^3.0.2",
-        "stylelint": "^14.3.0",
-        "stylelint-config-prettier": "^9.0.4",
-        "stylelint-config-recommended": "^6.0.0",
-        "stylelint-config-standard": "~24.0.0",
-        "stylelint-prettier": "^2.0.0",
-        "typescript": "~4.1.3"
+        "prettier": "^3.6.2",
+        "rimraf": "^4.3.1",
+        "stylelint": "^16.23.1",
+        "stylelint-config-recommended": "^17.0.0",
+        "stylelint-config-standard": "^39.0.0",
+        "typescript": "~5.8.3"
     },
     "sideEffects": [
         "style/*.css"
@@ -95,7 +92,7 @@
             "eslint:recommended",
             "plugin:@typescript-eslint/eslint-recommended",
             "plugin:@typescript-eslint/recommended",
-            "plugin:prettier/recommended"
+            "prettier"
         ],
         "parser": "@typescript-eslint/parser",
         "parserOptions": {
@@ -128,7 +125,7 @@
             "@typescript-eslint/no-explicit-any": "off",
             "@typescript-eslint/no-namespace": "off",
             "@typescript-eslint/no-use-before-define": "off",
-            "@typescript-eslint/quotes": [
+            "quotes": [
                 "error",
                 "single",
                 {
@@ -153,8 +150,7 @@
     "stylelint": {
         "extends": [
             "stylelint-config-recommended",
-            "stylelint-config-standard",
-            "stylelint-prettier/recommended"
+            "stylelint-config-standard"
         ],
         "rules": {
             "property-no-vendor-prefix": null,
@@ -163,11 +159,5 @@
             "alpha-value-notation": null,
             "color-function-notation": null
         }
-    },
-    "resolutions": {
-        "@lumino/coreutils": "1.11.0",
-        "@lumino/messaging": "1.10.0",
-        "@lumino/signaling": "1.10.0",
-        "@lumino/widgets": "1.37.2"
     }
 }
