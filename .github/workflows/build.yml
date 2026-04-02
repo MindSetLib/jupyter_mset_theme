@@ -12,7 +12,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Base Setup
       uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
@@ -24,7 +24,9 @@ jobs:
       run: |
         set -eux
         jlpm install --immutable
-        jlpm run lint:check
+        ./node_modules/.bin/stylelint --cache "style/**/*.css"
+        ./node_modules/.bin/prettier "**/*{.ts,.tsx,.js,.jsx,.css,.json,.md}" --check
+        ./node_modules/.bin/eslint . --cache --ext .ts,.tsx
 
     - name: Build the extension
       run: |
@@ -56,9 +58,9 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Install Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.12'
         architecture: 'x64'
@@ -85,6 +87,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
       - uses: jupyterlab/maintainer-tools/.github/actions/check-links@v1
