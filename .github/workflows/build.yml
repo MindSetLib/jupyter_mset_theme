@@ -2,82 +2,92 @@ name: Build
 
 on:
   push:
-    branches: main
+    branches: [main]
   pull_request:
-    branches: '*'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v5
 
-    - name: Base Setup
-      uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
 
-    - name: Install dependencies
-      run: python -m pip install -U jupyterlab~=3.1
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+          cache: 'yarn'
 
-    - name: Lint the extension
-      run: |
-        set -eux
-        jlpm
-        jlpm run lint:check
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip build
+          python -m pip install "jupyterlab>=4,<5"
+          YARN_ENABLE_IMMUTABLE_INSTALLS=false jlpm install
 
-    - name: Build the extension
-      run: |
-        set -eux
-        python -m pip install .[test]
+      - name: Lint the extension
+        run: jlpm lint:check
 
-        jupyter labextension list
-        jupyter labextension list 2>&1 | grep -ie "jupyter_mset_theme.*OK"
-        python -m jupyterlab.browser_check
+      - name: Build and install the extension
+        run: |
+          set -eux
+          jlpm build:prod
+          python -m pip install .
 
-    - name: Package the extension
-      run: |
-        set -eux
+          jupyter labextension list
+          jupyter labextension list 2>&1 | grep -ie "jupyter_mset_theme.*OK"
+          python -m jupyterlab.browser_check --no-chrome-test
 
-        pip install build
-        python -m build
-        pip uninstall -y "jupyter_mset_theme" jupyterlab
+      - name: Package the extension
+        run: |
+          set -eux
+          python -m build
+          python -m pip uninstall -y "jupyter_mset_theme" jupyterlab
 
-    - name: Upload extension packages
-      uses: actions/upload-artifact@v3
-      with:
-        name: extension-artifacts
-        path: dist/jupyter_mset_theme*
-        if-no-files-found: error
+      - name: Upload extension packages
+        uses: actions/upload-artifact@v6
+        with:
+          name: extension-artifacts
+          path: dist/jupyter_mset_theme*
+          if-no-files-found: error
 
   test_isolated:
     needs: build
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-    - name: Install Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.9'
-        architecture: 'x64'
-    - uses: actions/download-artifact@v3
-      with:
-        name: extension-artifacts
-    - name: Install and Test
-      run: |
-        set -eux
-        # Remove NodeJS, twice to take care of system and locally installed node versions.
-        sudo rm -rf $(which node)
-        sudo rm -rf $(which node)
+      - name: Checkout
+        uses: actions/checkout@v5
 
-        pip install "jupyterlab~=3.1" jupyter_mset_theme*.whl
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+          architecture: 'x64'
 
+      - name: Download built artifacts
+        uses: actions/download-artifact@v8
+        with:
+          name: extension-artifacts
 
-        jupyter labextension list
-        jupyter labextension list 2>&1 | grep -ie "jupyter_mset_theme.*OK"
-        python -m jupyterlab.browser_check --no-chrome-test
+      - name: Install and test wheel
+        run: |
+          set -eux
+          python -m pip install --upgrade pip
+          python -m pip install "jupyterlab>=4,<5" jupyter_mset_theme*.whl
+
+          jupyter labextension list
+          jupyter labextension list 2>&1 | grep -ie "jupyter_mset_theme.*OK"
+          python -m jupyterlab.browser_check --no-chrome-test
 
 
   check_links:
@@ -85,6 +95,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
       - uses: jupyterlab/maintainer-tools/.github/actions/check-links@v1
