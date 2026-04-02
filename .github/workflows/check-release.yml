@@ -19,7 +19,9 @@ jobs:
         uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
       - name: Install Dependencies
         run: |
-          pip install -e .
+          python -m pip install -U pip
+          python -m pip install -U "jupyterlab~=4.5" hatchling hatch-jupyter-builder hatch-nodejs-version
+          YARN_ENABLE_IMMUTABLE_INSTALLS=false pip install -e . --no-build-isolation
       - name: Check Release
         uses: jupyter-server/jupyter_releaser/.github/actions/check-release@v2
         with:
