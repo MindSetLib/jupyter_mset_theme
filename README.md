@@ -1,11 +1,13 @@
 # jupyter_mset_theme
 
 [![Github Actions Status](https://github.com/MindSetLib/jupyter_mset_theme/workflows/Build/badge.svg)](https://github.com/MindSetLib/jupyter_mset_theme/actions/workflows/build.yml)
-JupyterLab3 theme for mset
+JupyterLab global style overrides for mset
+
+This package applies CSS overrides globally, regardless of which JupyterLab theme is selected. It does not replace logos, favicon, or top-bar widgets.
 
 ## Requirements
 
-- JupyterLab >= 3.0
+- JupyterLab >= 4.5
 
 ## Install
 
