@@ -1,0 +1,48 @@
+name: Step 1 - Prep Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: Target branch to release from
+        required: true
+        default: main
+      version_spec:
+        description: New version or hatch segment (for example 0.2.1, patch, minor)
+        required: false
+      post_version_spec:
+        description: Optional post-release version (for example 0.2.2.dev0)
+        required: false
+      since:
+        description: Optional git ref/tag to collect changelog entries since
+        required: false
+      since_last_stable:
+        description: Collect PRs since the last stable tag
+        required: false
+        type: boolean
+        default: true
+      dry_run:
+        description: Run without publishing changes
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  prep_release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Prep Release
+        uses: jupyter-server/jupyter_releaser/.github/actions/prep-release@v2
+        with:
+          branch: ${{ inputs.branch }}
+          version_spec: ${{ inputs.version_spec }}
+          post_version_spec: ${{ inputs.post_version_spec }}
+          since: ${{ inputs.since }}
+          since_last_stable: ${{ inputs.since_last_stable }}
+          dry_run: ${{ inputs.dry_run }}
+          token: ${{ secrets.GITHUB_TOKEN }}
