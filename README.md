@@ -29,7 +29,7 @@ pip uninstall jupyter_mset_theme
 
 ### Development install
 
-Note: You will need Node.js 20 or newer to build the extension package and regenerate `yarn.lock`.
+Note: You will need Node.js 24 or newer to build the extension package and regenerate `yarn.lock`.
 
 The `jlpm` command is JupyterLab's pinned version of
 [yarn](https://yarnpkg.com/) that is installed with JupyterLab. You may use
